@@ -1,1 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Ownership Pull</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Your Ownership Pull</h1>
+    <p class="subhead">
+      This isn’t a readiness test. It’s a short reflection that helps name what’s pulling you toward ownership.
+    </p>
+
+    <!-- Netlify Forms (optional): leave as-is; it will work once deployed on Netlify -->
+    <form name="ownership-pull" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/result.html">
+      <input type="hidden" name="form-name" value="ownership-pull" />
+      <p class="hidden">
+        <label>Don’t fill this out: <input name="bot-field" /></label>
+      </p>
+
+      <section class="card">
+        <h2>1) What’s usually underneath the idea of ownership for you?</h2>
+        <label><input type="radio" name="q1" value="creation" required> I want to build something of my own.</label>
+        <label><input type="radio" name="q1" value="escape"> I want to get out of my current situation.</label>
+        <label><input type="radio" name="q1" value="escape" > Both, but escape is louder right now.</label>
+        <label><input type="radio" name="q1" value="creation"> Both, but creation is louder right now.</label>
+      </section>
+
+      <section class="card">
+        <h2>2) Which thought feels more familiar?</h2>
+        <label><input type="radio" name="q2" value="creation" required> “I want to create something that reflects how I think.”</label>
+        <label><input type="radio" name="q2" value="escape"> “I’m tired of working inside constraints I didn’t choose.”</label>
+      </section>
+
+      <section class="card">
+        <h2>3) If ownership worked the way you imagine, what would change first?</h2>
+        <label><input type="radio" name="q3" value="control" required> I’d control decisions and direction.</label>
+        <label><input type="radio" name="q3" value="flex"> I’d control my time and schedule.</label>
+        <label><input type="radio" name="q3" value="control"> I’d have more influence, even if I worked a lot.</label>
+        <label><input type="radio" name="q3" value="unsure"> I’m not sure—I just know things would feel different.</label>
+      </section>
+
+      <section class="card">
+        <h2>4) Which tradeoff feels more acceptable right now?</h2>
+        <label><input type="radio" name="q4" value="control" required> More responsibility in exchange for control.</label>
+        <label><input type="radio" name="q4" value="flex"> Less control in exchange for flexibility.</label>
+      </section>
+
+      <section class="card">
+        <h2>5) Which statement feels closer—even if you don’t love it?</h2>
+        <label><input type="radio" name="q5" value="status" required> Being “the owner” matters more than I admit.</label>
+        <label><input type="radio" name="q5" value="autonomy"> Not answering to someone else matters more than titles.</label>
+        <label><input type="radio" name="q5" value="mixed"> I go back and forth.</label>
+      </section>
+
+      <section class="card">
+        <h2>6) Which future feels more satisfying?</h2>
+        <label><input type="radio" name="q6" value="status" required> People recognize you as someone who built something.</label>
+        <label><input type="radio" name="q6" value="autonomy"> You quietly design your days without much outside input.</label>
+      </section>
+
+      <section class="card">
+        <h2>7) Which fear shows up more often?</h2>
+        <label><input type="radio" name="q7" value="regret" required> “I’ll regret not trying.”</label>
+        <label><input type="radio" name="q7" value="failure"> “I’ll regret trying and failing.”</label>
+        <label><input type="radio" name="q7" value="mixed"> They show up about equally.</label>
+      </section>
+
+      <section class="card">
+        <h2>8) When you imagine doing nothing different for 5 years, you feel:</h2>
+        <label><input type="radio" name="q8" value="regret" required> Uneasy, restless.</label>
+        <label><input type="radio" name="q8" value="failure"> Relieved, stable.</label>
+        <label><input type="radio" name="q8" value="mixed"> Both, depending on the day.</label>
+      </section>
+
+      <section class="card">
+        <h2>9) Which feels more true?</h2>
+        <label><input type="radio" name="q9" value="uncertain_drain" required> Uncertainty energizes me at first, then drains me.</label>
+        <label><input type="radio" name="q9" value="uncertain_tolerate"> Uncertainty stresses me, but I can tolerate it if there’s purpose.</label>
+        <label><input type="radio" name="q9" value="uncertain_avoid"> I avoid uncertainty whenever possible.</label>
+      </section>
+
+      <section class="card">
+        <h2>10) When you don’t have a clear next step, you tend to:</h2>
+        <label><input type="radio" name="q10" value="quiet" required> Keep thinking about it quietly.</label>
+        <label><input type="radio" name="q10" value="research"> Research endlessly.</label>
+        <label><input type="radio" name="q10" value="park"> Park it and revisit later.</label>
+        <label><input type="radio" name="q10" value="pressure"> Feel pressure to decide even if it’s premature.</label>
+      </section>
+
+      <section class="card">
+        <h2>11) Which sentence do you most want to hear?</h2>
+        <label><input type="radio" name="q11" value="permission" required> “You’re not crazy for wanting this.”</label>
+        <label><input type="radio" name="q11" value="permission"> “You don’t need to rush this.”</label>
+        <label><input type="radio" name="q11" value="permission"> “You could actually do this.”</label>
+        <label><input type="radio" name="q11" value="permission"> “It’s okay if this never becomes anything.”</label>
+      </section>
+
+      <section class="card">
+        <h2>Optional: get a copy of your reflection</h2>
+        <input class="input" type="email" name="email" placeholder="Email address (optional)" />
+      </section>
+
+      <div class="actions">
+        <button type="submit" class="btn">Generate my reflection</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
 
