@@ -125,7 +125,7 @@
   function render() {
     const total = QUESTIONS.length;
     const q = QUESTIONS[step];
-
+    els.nextBtn.textContent = (step === QUESTIONS.length - 1) ? "See results" : "Next";
     els.stepLabel.textContent = `${step + 1} / ${total}`;
     els.progressBar.style.width = `${pct(step, total - 1)}%`;
 
@@ -277,6 +277,10 @@
   }
 
   function showResults() {
+    if (!els.stageResult || !els.reflection) {
+    alert("Results view is missing. Check index.html ids: stageResult and reflection.");
+    return;
+  }
     els.stageQuestion.classList.add("stage--hidden");
     els.stageResult.classList.remove("stage--hidden");
     els.progressBar.style.width = "100%";
