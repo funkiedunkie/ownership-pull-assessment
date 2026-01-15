@@ -36,8 +36,6 @@
         { label: "Less control in exchange for flexibility.", value: "flex" },
       ],
     },
-
-    // ---- FIX FOR FRANK: avoid forcing "legitimacy" (expand options + add impact/neutral) ----
     {
       id: "q5",
       text: "Which statement feels closer—even if you don’t love it?",
@@ -57,7 +55,6 @@
         { label: "The work itself matters more than recognition.", value: "impact" },
       ],
     },
-
     {
       id: "q7",
       text: "Which fear shows up more often?",
@@ -120,7 +117,7 @@
     restartBtn: document.getElementById("restartBtn"),
   };
 
-  const answers = {}; // { q1: value, ... }
+  const answers = {};
   let step = 0;
 
   function pct(n, d) {
@@ -174,6 +171,152 @@
     return lc;
   }
 
+  function permissionLine(permissionKey) {
+    const map = {
+      permission_not_crazy: "You’re not crazy for wanting this.",
+      permission_no_rush: "You don’t need to rush this.",
+      permission_you_can: "You could actually do this.",
+      permission_its_ok: "It’s okay if this never becomes anything.",
+    };
+    return map[permissionKey] || "You don’t need to rush this.";
+  }
+
+  function paintOwnershipFuture({ motive, desire, driver, fear, uncertainty, pattern }) {
+    // Keep this descriptive, not prescriptive. No “you should start a business.”
+    const motiveFrame = {
+      creation: "You’re pulled toward ownership as a way to build—something that reflects how you think and operate.",
+      escape: "You’re pulled toward ownership as a way to change constraints—more agency, less friction, fewer borrowed rules.",
+      mixed: "You’re pulled toward ownership for more than one reason—part building, part changing what feels constrained.",
+    }[motive];
+
+    const driverFrame = {
+      autonomy: "The best-fit version of ownership for you is self-directed: clear authority, clear standards, clear decision rights.",
+      impact: "The best-fit version of ownership for you is meaning-driven: a business where the work itself matters more than how it looks.",
+      status: "Recognition can be part of the picture, but it has to come from building something real—not posturing.",
+      mixed: "Your driver isn’t singular. A good-fit business will satisfy autonomy and impact, without forcing a status game.",
+    }[driver];
+
+    const operatingShape = (() => {
+      // Translate desire into what the business “feels like”
+      if (desire === "control") {
+        return [
+          "A simple, focused business (one clear offer, one clear customer).",
+          "You can set standards, tighten operations, and remove bottlenecks.",
+          "You are the architect early—building a machine you can trust."
+        ];
+      }
+      if (desire === "flexibility") {
+        return [
+          "A business that can be staffed and scheduled without you being the bottleneck.",
+          "Fewer emergencies, fewer dependencies, more repeatable delivery.",
+          "Your time is protected by design, not willpower."
+        ];
+      }
+      return [
+        "A business with enough structure to feel real, and enough flexibility to evolve.",
+        "You can make meaningful decisions without drowning in complexity.",
+        "The point is traction—not perfect certainty."
+      ];
+    })();
+
+    const weekFeelsLike = (() => {
+      if (driver === "impact") {
+        return [
+          "You spend time close to the customer problem, not just the numbers.",
+          "You measure success by outcomes delivered, not by optics.",
+          "You keep the business small enough to protect the mission."
+        ];
+      }
+      if (driver === "autonomy") {
+        return [
+          "Monday: pick priorities, kill one bottleneck.",
+          "Midweek: work on standards—quality, hiring, customer experience.",
+          "Friday: tighten the machine so next week has fewer surprises."
+        ];
+      }
+      return [
+        "You alternate between decisions (direction) and systems (repeatability).",
+        "You don’t chase chaos. You convert it into process.",
+        "You protect momentum with a small set of weekly operating habits."
+      ];
+    })();
+
+    const riskToWatch = (() => {
+      // Use fear + pattern to name how they get stuck
+      const fearLine =
+        fear === "regret"
+          ? "Your risk isn’t laziness. It’s letting time pass while you wait for certainty."
+          : fear === "failure"
+            ? "Your risk isn’t fear itself. It’s protecting stability so hard you never test what could work."
+            : "Your risk is a push-pull loop: wanting movement and wanting safety at the same time.";
+
+      const patternLine = {
+        research: "When you’re unsure, you’ll tend to over-research. Your antidote is a bounded experiment that creates real information.",
+        quiet: "When you’re unsure, you’ll tend to keep it internal. Your antidote is one external step that makes it real (conversation, shortlist, small action).",
+        park: "When you’re unsure, you’ll tend to park it. Your antidote is a calendar-based decision: one small action this week, then reassess.",
+        pressure: "When you’re unsure, you’ll tend to force a decision. Your antidote is permission to sequence: explore → test → commit.",
+      }[pattern] || "Your antidote is a bounded experiment that creates real information.";
+
+      const uncertaintyLine = (() => {
+        if (uncertainty === "uncertain_avoid") return "Design around uncertainty: fewer moving parts, clearer economics, cleaner roles.";
+        if (uncertainty === "uncertain_drain") return "Momentum matters: small wins beat big deliberation.";
+        return "You can handle uncertainty when there’s purpose: pick a direction that feels meaningful, then test it.";
+      })();
+
+      return [fearLine, patternLine, uncertaintyLine];
+    })();
+
+    const whatItMightLookLike = (() => {
+      // Category-level examples only. No “buy this type of business.”
+      if (driver === "impact") {
+        return [
+          "Owner-led services with clear outcomes (where craft and care matter).",
+          "Community-rooted businesses where values are visible in delivery.",
+          "Small teams solving a specific, real problem."
+        ];
+      }
+      if (desire === "control") {
+        return [
+          "Process-driven local businesses with repeatable delivery.",
+          "B2B services where standards and reliability win.",
+          "A business where ops improvements show up quickly in results."
+        ];
+      }
+      return [
+        "Businesses with stable demand and delegation potential.",
+        "Offerings that can be delivered consistently by a team.",
+        "A model where you can step back without the engine stalling."
+      ];
+    })();
+
+    return `
+      <div class="divider"></div>
+      <h2 style="margin:0 0 10px; font-size:18px;">A picture of you as an owner (if you choose ownership)</h2>
+      <p>${motiveFrame}</p>
+      <p>${driverFrame}</p>
+
+      <h3 style="margin:14px 0 8px; font-size:16px;">What the business tends to look like</h3>
+      <ul style="margin:0 0 12px; padding-left:18px;">
+        ${operatingShape.map(x => `<li>${x}</li>`).join("")}
+      </ul>
+
+      <h3 style="margin:14px 0 8px; font-size:16px;">What a good week feels like</h3>
+      <ul style="margin:0 0 12px; padding-left:18px;">
+        ${weekFeelsLike.map(x => `<li>${x}</li>`).join("")}
+      </ul>
+
+      <h3 style="margin:14px 0 8px; font-size:16px;">What to watch for</h3>
+      <ul style="margin:0 0 12px; padding-left:18px;">
+        ${riskToWatch.map(x => `<li>${x}</li>`).join("")}
+      </ul>
+
+      <h3 style="margin:14px 0 8px; font-size:16px;">Where people with this pattern often start looking</h3>
+      <ul style="margin:0 0 4px; padding-left:18px;">
+        ${whatItMightLookLike.map(x => `<li>${x}</li>`).join("")}
+      </ul>
+    `;
+  }
+
   function computeReflection() {
     const dims = {
       motive_creation: 0,
@@ -182,7 +325,7 @@
       desire_flex: 0,
       driver_status: 0,
       driver_autonomy: 0,
-      driver_impact: 0,   // <-- added
+      driver_impact: 0,
       fear_regret: 0,
       fear_failure: 0,
     };
@@ -199,11 +342,10 @@
     if (answers.q4 === "control") dims.desire_control++;
     if (answers.q4 === "flex") dims.desire_flex++;
 
-    // driver (updated)
+    // driver
     if (answers.q5 === "status") dims.driver_status++;
     if (answers.q5 === "autonomy") dims.driver_autonomy++;
     if (answers.q5 === "impact") dims.driver_impact++;
-    // "neither" => no increment
     if (answers.q6 === "status") dims.driver_status++;
     if (answers.q6 === "autonomy") dims.driver_autonomy++;
     if (answers.q6 === "impact") dims.driver_impact++;
@@ -226,7 +368,9 @@
     );
     const fear = dominant(dims.fear_regret, dims.fear_failure, "regret", "failure");
 
-    const textureUncertainty = answers.q9; // drain | tolerate | avoid
+    const uncertainty = answers.q9;  // uncertain_drain | uncertain_tolerate | uncertain_avoid
+    const pattern = answers.q10;     // quiet | research | park | pressure
+    const permission = answers.q11;  // permission_...
 
     const motiveLine = {
       creation:
@@ -242,7 +386,7 @@
         ? "A big part of the appeal is control: decisions, direction, and outcomes. Not because you need power—because you want ownership over consequence."
         : "A big part of the appeal is flexibility: time, optionality, and a life that feels self-directed. Not because you want less work—because you want the work to fit.";
 
-    // Frank fix: only mention recognition if status is strong (both driver questions)
+    // Only mention recognition if status is strong (both driver questions picked status)
     const statusStrong = (dims.driver_status >= 2);
 
     const driverLine = (() => {
@@ -268,15 +412,26 @@
     }[fear];
 
     const textureLine = (() => {
-      if (textureUncertainty === "uncertain_avoid")
-        return "You’re not wired to live in open-ended uncertainty for long. That’s not a weakness—it’s a constraint to respect.";
-      if (textureUncertainty === "uncertain_drain")
+      if (uncertainty === "uncertain_avoid")
+        return "You’re not wired to live in open-ended uncertainty for long. That’s a constraint to respect.";
+      if (uncertainty === "uncertain_drain")
         return "Uncertainty may energize you initially, then wear you down. Momentum matters more for you than perfect clarity.";
       return "You can tolerate uncertainty when there’s purpose. You don’t need certainty—you need a reason that feels real.";
     })();
 
     const closeLine =
-      "This reflection isn’t telling you to act. It’s giving language to what’s already present. If you ever take a next step, it should be small, voluntary, and grounded.";
+      "This reflection isn’t telling you to act. It’s giving language to what’s already present.";
+
+    const permissionText = permissionLine(permission);
+
+    const painted = paintOwnershipFuture({
+      motive,
+      desire,
+      driver,
+      fear,
+      uncertainty,
+      pattern,
+    });
 
     return [
       `<p>${motiveLine}</p>`,
@@ -285,6 +440,8 @@
       `<p>${fearLine}</p>`,
       `<p>${textureLine}</p>`,
       `<p><strong>${closeLine}</strong></p>`,
+      `<p><em>${permissionText}</em></p>`,
+      painted,
     ].join("");
   }
 
