@@ -91,15 +91,15 @@
       ],
     },
     {
-      id: "q11",
-      text: "Which sentence do you most want to hear from someone credible?",
-      options: [
-        { label: "“You’re not crazy for wanting this.”", value: "permission" },
-        { label: "“You don’t need to rush this.”", value: "permission" },
-        { label: "“You could actually do this.”", value: "permission" },
-        { label: "“It’s okay if this never becomes anything.”", value: "permission" },
-      ],
-    },
+  id: "q11",
+  text: "Which sentence do you most want to hear from someone credible?",
+  options: [
+    { label: "“You’re not crazy for wanting this.”", value: "permission_not_crazy" },
+    { label: "“You don’t need to rush this.”", value: "permission_no_rush" },
+    { label: "“You could actually do this.”", value: "permission_you_can" },
+    { label: "“It’s okay if this never becomes anything.”", value: "permission_its_ok" },
+  ],
+},
   ];
 
   const els = {
